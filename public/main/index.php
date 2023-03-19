@@ -1,3 +1,23 @@
+<?php
+
+session_start();
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$status = $_SESSION['status'];
+
+if($status != "login") {
+  header("Location: ../../backend/signin.php?message=Silahkan login terlebih dahulu");
+}
+
+if(isset($_POST['signout'])) {
+  session_destroy();
+
+  header("Location: ../getstarted.html?message= Terimakasih sudah berkunjung");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -100,7 +120,7 @@
             <span class="sr-only">Open user menu</span>
             <img
               class="w-8 h-8 rounded-full"
-              src="../../src/img/myprofile.jpg"
+              src=""
               alt="user photo"
             />
           </button>
@@ -111,11 +131,11 @@
           >
             <div class="px-4 py-3">
               <span class="block text-sm text-white dark:text-white"
-                >mcDJIL</span
+                ><?= $username; ?></span
               >
               <span
                 class="block text-sm font-medium text-white truncate dark:text-gray-400"
-                >mdjauharil29@gmail.com</span
+                ><?= $email; ?></span
               >
             </div>
             <ul class="py-2" aria-labelledby="user-menu-button">
@@ -141,11 +161,10 @@
                 >
               </li>
               <li>
-                <a
-                  href="../getstarted.html"
-                  class="block px-4 py-2 text-sm text-white hover:bg-gray-500 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >Sign out</a
-                >
+                <form action="" method="POST">
+                <button class="block px-4 py-2 text-sm text-white hover:bg-gray-500 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" type="submit" name="signout">
+                Sign out</button>
+                </form>
               </li>
             </ul>
           </div>
